@@ -82,7 +82,7 @@ router.get("/", async (req, res) => {
             );
 
             const sid = `*MAHII-MD  [The powerful WA BOT]*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*wa.me/message/WKGLBR2PCETWD1*`;
-            const mg = `🛑 *Do not share this code to anyone* 🛑`;
+            const mg = `🛑 *Do not share this code to anyone* 🛑\n\n *මේක කාටවත් දාන්න එපා*`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
               image: {
                 url: "https://raw.githubusercontent.com/Mahii-Botz/Mahii-md-LOGO/refs/heads/main/ChatGPT%20Image%20Apr%2021%2C%202025%2C%2005_32_50%20PM.png",
