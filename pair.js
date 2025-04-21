@@ -81,11 +81,11 @@ router.get("/", async (req, res) => {
               ""
             );
 
-            const sid = `*ROBIN [The powerful WA BOT]*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*wa.me/message/WKGLBR2PCETWD1*\n\n*You can join my whatsapp group*\n\n*https://chat.whatsapp.com/GAOhr0qNK7KEvJwbenGivZ*`;
+            const sid = `*MAHII-MD  [The powerful WA BOT]*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*wa.me/message/WKGLBR2PCETWD1*`;
             const mg = `🛑 *Do not share this code to anyone* 🛑`;
             const dt = await RobinPairWeb.sendMessage(user_jid, {
               image: {
-                url: "https://raw.githubusercontent.com/Dark-Robin/Bot-Helper/refs/heads/main/autoimage/Bot%20robin%20WP.jpg",
+                url: "https://imagekit.io/tools/asset-public-link?detail=%7B%22name%22%3A%22ChatGPT%20Image%20Apr%2021%2C%202025%2C%2005_32_50%20PM.png%22%2C%22type%22%3A%22image%2Fpng%22%2C%22signedurl_expire%22%3A%222028-04-20T12%3A37%3A42.967Z%22%2C%22signedUrl%22%3A%22https%3A%2F%2Fmedia-hosting.imagekit.io%2F72930824fe274aa7%2FChatGPT%2520Image%2520Apr%252021%2C%25202025%2C%252005_32_50%2520PM.png%3FExpires%3D1839847063%26Key-Pair-Id%3DK2ZIVPTIP2VGHC%26Signature%3DlH5JAe1QRp6~b3l42HFUTJ4PUA1AtY3E-Z~g4s53BFsLIUjbNNUjFmuyq0ZoZKjJ-uC1Fkb~CUnn8tj61LB4v8rXU5IlmaS5Y6cxdzuTv2nf6DuAFvvd8R8ylHTGZ~Xu~kUVGe1Cnv8xCGR3U0mhIf-xiabH7JAzCGG8eFk8gL-SdkCusoZyU93B8lZPkpyNIzMGHjOKsjBbDqSZUdbC8HJajEDYnDxrbEuDe3yvkIrxfgyb67gVOnK4xvLpdhl8kWdaRmoexof9r~2GsRuW7vyLWDxlAkzdOlh0siBaURz9hhQwbvSHLdjs0GLYnZjpOFzAOhW09Vf7KHuueoUWzg__%22%7D",
               },
               caption: sid,
             });
