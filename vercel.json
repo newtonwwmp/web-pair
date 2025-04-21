@@ -2,22 +2,30 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/index.js",
+      "src": "index.js",
       "use": "@vercel/node"
     },
     {
-      "src": "public/**",
+      "src": "pair.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "pair.js",
+      "use": "@vercel/node"
     }
   ],
   "routes": [
     {
+      "src": "/code/(.*)",
+      "dest": "pair.js"
+    },
+    {
       "src": "/api/(.*)",
-      "dest": "/api/index.js"
+      "dest": "index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "/public/$1"
+      "dest": "pair.html"
     }
   ]
 }
