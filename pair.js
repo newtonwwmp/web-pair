@@ -1,7 +1,5 @@
-const express = require("express");
 const fs = require("fs");
 const { exec } = require("child_process");
-let router = express.Router();
 const pino = require("pino");
 const {
   default: makeWASocket,
@@ -11,15 +9,21 @@ const {
   Browsers,
   jidNormalizedUser,
 } = require("@whiskeysockets/baileys");
-const { upload } = require("./mega");
+const { upload } = require("./mega"); // make sure mega.js is compatible for Vercel too
 
 function removeFile(FilePath) {
   if (!fs.existsSync(FilePath)) return false;
   fs.rmSync(FilePath, { recursive: true, force: true });
 }
 
-router.get("/", async (req, res) => {
+module.exports = async (req, res) => {
+  if (req.method !== "GET") {
+    res.status(405).send({ error: "Only GET requests allowed" });
+    return;
+  }
+
   let num = req.query.number;
+  
   async function RobinPair() {
     const { state, saveCreds } = await useMultiFileAuthState(`./session`);
     try {
@@ -52,7 +56,6 @@ router.get("/", async (req, res) => {
           try {
             await delay(10000);
             const sessionPrabath = fs.readFileSync("./session/creds.json");
-
             const auth_path = "./session/";
             const user_jid = jidNormalizedUser(RobinPairWeb.user.id);
 
@@ -81,24 +84,25 @@ router.get("/", async (req, res) => {
               ""
             );
 
-            const sid = `*MAHII-MD Connected Succesfully ✅*\n\n👉 ${string_session} 👈\n\n*This is the your Session ID, copy this id and paste into config.js file*\n\n*You can ask any question using this link*\n\n*https://wa.me/94715450089*`;
-            const mg = `🛑 *Do not share this code to anyone* 🛑\n\n *මේක කාටවත් දාන්න එපා*`;
-            const dt = await RobinPairWeb.sendMessage(user_jid, {
+            const sid = `*MAHII-MD Connected Successfully ✅*\n\n👉 ${string_session} 👈\n\n*This is your Session ID*`;
+            const mg = `🛑 *Do not share this code with anyone!* 🛑`;
+
+            await RobinPairWeb.sendMessage(user_jid, {
               image: {
                 url: "https://raw.githubusercontent.com/Mahii-Botz/Mahii-md-LOGO/refs/heads/main/ChatGPT%20Image%20Apr%2021%2C%202025%2C%2005_32_50%20PM.png",
               },
               caption: sid,
             });
-            const msg = await RobinPairWeb.sendMessage(user_jid, {
-              text: string_session,
-            });
-            const msg1 = await RobinPairWeb.sendMessage(user_jid, { text: mg });
+
+            await RobinPairWeb.sendMessage(user_jid, { text: string_session });
+            await RobinPairWeb.sendMessage(user_jid, { text: mg });
+
           } catch (e) {
-            exec("pm2 restart prabath");
+            console.error(e);
           }
 
           await delay(100);
-          return await removeFile("./session");
+          await removeFile("./session");
           process.exit(0);
         } else if (
           connection === "close" &&
@@ -111,21 +115,13 @@ router.get("/", async (req, res) => {
         }
       });
     } catch (err) {
-      exec("pm2 restart Robin-md");
-      console.log("service restarted");
-      RobinPair();
-      await removeFile("./session");
+      console.error("Error occurred:", err);
       if (!res.headersSent) {
         await res.send({ code: "Service Unavailable" });
       }
+      await removeFile("./session");
     }
   }
+
   return await RobinPair();
-});
-
-process.on("uncaughtException", function (err) {
-  console.log("Caught exception: " + err);
-  exec("pm2 restart Robin");
-});
-
-module.exports = router;
+};
